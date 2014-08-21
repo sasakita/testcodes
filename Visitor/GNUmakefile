@@ -1,23 +1,27 @@
+# default target
+all:
+
 include GNUmakefile.unittest
+
 CXX = g++
-CXXFLAGS = -Wall -g -O0 -pthread -Wextra
+CXXFLAGS = -Wall -g -O0 -pthread -Wextra -I $(INCLUDE)
 
 SOURCES := main.cpp
 OBJECTS := $(SOURCES:.cpp=.o)
 APP := Visitor
-
-SOURCES := $(patsubst %,src/%,${SOURCES})
+INCLUDE := src
+#SOURCES := $(patsubst %,src/%,${SOURCES})
 OBJECTS := $(patsubst %,obj/%,${OBJECTS})
 APP := $(patsubst %,bin/%,${APP})
+VPATH = src
 
 # Here source
-all: $(SOURCES) $(APP)
+all: $(APP) $(APPTEST)
 
 $(APP): $(OBJECTS) bin
 	$(CXX) $(LDFLAGS) $(OBJECTS) -o $@
 
-#.cpp.o:
-obj/%.o:src/%.cpp obj
+obj/%.o: %.cpp obj
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 bin:
@@ -29,3 +33,4 @@ obj:
 .PHONY: clean
 clean:
 	rm -rf obj
+	rm -f $(APP) $(APPTEST)
