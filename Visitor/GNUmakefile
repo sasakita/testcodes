@@ -30,7 +30,10 @@ bin:
 obj:
 	@mkdir obj
 
-.PHONY: clean
+.PHONY: clean check-syntax
 clean:
 	rm -rf obj
 	rm -f $(APP) $(APPTEST)
+
+check-syntax:
+	$(CXX) -o nul -S $(CHK_SOURCES)
