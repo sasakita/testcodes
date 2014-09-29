@@ -10,7 +10,7 @@ int main()
     n.addObserver(&t);
     ExecObserver e;
     n.addObserver(&e);
-	n.execute();
+	n.execute(); 
     cout << "Hello world!" << endl;
     return 0;
 }
